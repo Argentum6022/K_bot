@@ -1,6 +1,14 @@
-from aiogram import Bot, Dispatcher, executor, types
-from config import TOKEN
 
+from config import TOKEN
+import asyncio
+import logging
+
+from aiogram import Bot, Dispatcher
+from aiogram.types import BotCommand
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+
+from hadliners import register_handlers
+from hadliners import register_handlers_common
 
 logger = logging.getLogger(__name__)
 
@@ -21,8 +29,6 @@ async def main():
     )
     logger.error("Starting bot")
 
-    # Парсинг файла конфигурации
-    config = load_config("config/bot.ini")
 
     # Объявление и инициализация объектов бота и диспетчера
     bot = Bot(token=TOKEN)
@@ -30,7 +36,7 @@ async def main():
 
     # Регистрация хэндлеров
     register_handlers_common(dp)
-    register_handlers_solution(dp)
+    register_handlers(dp)
 
 
     # Установка команд бота

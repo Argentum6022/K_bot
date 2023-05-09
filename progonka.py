@@ -1,36 +1,36 @@
 import numpy as np
 import pandas as pd
-import math
-import plotly
 import plotly.graph_objs as go
 import plotly.figure_factory as ff
+import math
 
 
+#xmin=2
+#xmax=3.82
+#h=0.13
+#tmax=0.14
+#tmin=0.02
+#T=0.01
+#lam=1
+#user_data={'u0_data':"3**(x/2)+x",'ft_data':'(18*t)**2+4.87','zt_data':'12*math.cos(6*t)'}
 
-xmin=2
-xmax=3.82
-h=0.13
-tmax=0.14
-tmin=0.02
-T=0.01
-lam=1
 
-t_list = []
-x_list = []
-f_list = []
-z_list = []
-u0_list = []
-a_list=[0]
-def u0(x):
-    return eval("3**(x/2)+x")
-def ft(t):
-    return eval('(18*t)**2+4.87')
-def zt(t):
-    return eval('12*math.cos(6*t)')
-
-def solve( xmin,xmax,h,tmin, tmax,T,lam):
+def solve( xmin,xmax,h,tmin, tmax,T,lam,user_data):
+    t_list = []
+    x_list = []
+    f_list = []
+    z_list = []
+    u0_list = []
+    a_list = [0]
     nt=int((tmax-tmin)/T)
     nx=int((xmax-xmin)/h)
+
+    def u0(x):
+        return eval(user_data['u0_data'])
+    def ft(t):
+        return eval(user_data['ft_data'])
+    def zt(t):
+        return eval(user_data['zt_data'])
 
     A=lam/h**2
     B=2*lam/h**2+1/T
@@ -79,10 +79,9 @@ def solve( xmin,xmax,h,tmin, tmax,T,lam):
     df1=np.round(df1,decimals=2)
     return df1
 
-a=solve(xmin,xmax,h,tmin, tmax,T,lam)
-print(a.to_string())
-
-a.to_excel('solution.xlsx', sheet_name='Лист1')
+#a=solve(xmin,xmax,h,tmin, tmax,T,lam)
+#print(a.to_string())
+#a.to_excel('solution.xlsx', sheet_name='Лист1')
 
 def temp_map(a):
     figure = ff.create_annotated_heatmap(
@@ -93,8 +92,8 @@ def temp_map(a):
         showscale=True)
     return figure
 
-fig=temp_map(a)
-fig.show()
+#fig=temp_map(a)
+#fig.show()
 
 def surface(a):
     x = list(a.columns)
@@ -104,5 +103,5 @@ def surface(a):
     surf = go.Figure(data=[go.Surface(x=x, y=y, z=z)])
     return surf
 
-sur=surface(a)
-sur.show()
+#sur=surface(a)
+#sur.show()
