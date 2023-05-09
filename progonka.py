@@ -76,7 +76,7 @@ def solve( xmin,xmax,h,tmin, tmax,T,lam,user_data):
         add_list.append(f_list[y])
         add_list.reverse()
         df1[t_list[y]]=add_list
-    df1=np.round(df1,decimals=2)
+    df1=np.round(df1,decimals=3)
     return df1
 
 #a=solve(xmin,xmax,h,tmin, tmax,T,lam)
