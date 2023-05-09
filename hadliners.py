@@ -87,6 +87,7 @@ async def ft_chosen(message: types.Message, state: FSMContext):
     s=s.replace("sqrt", "math.sqrt")
     s=s.replace("exp", "math.exp")
     s=s.replace("log", "math.log")
+    s=s.replace(",", ".")
     ft=s
     if s.find('t')==False:
         await message.answer("Пожалуйста, проверьте правильность уравнения.")
@@ -107,6 +108,7 @@ async def zt_chosen(message: types.Message, state: FSMContext):
     s=s.replace("sqrt", "math.sqrt")
     s=s.replace("exp", "math.exp")
     s=s.replace("log", "math.log")
+    s=s.replace(",", ".")
     zt = s
     if s.find('t') == False:
         await message.answer("Пожалуйста, проверьте правильность уравнения.")
@@ -127,6 +129,7 @@ async def u0_chosen(message: types.Message, state: FSMContext):
     s=s.replace("sqrt", "math.sqrt")
     s=s.replace("exp", "math.exp")
     s=s.replace("log", "math.log")
+    s=s.replace(",", ".")
     u0 = s
     if s.find('x')==False:
         await message.answer("Пожалуйста, проверьте правильность уравнения.")
