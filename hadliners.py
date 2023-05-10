@@ -4,6 +4,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from progonka import solve,temp_map,surface
 from config import TOKEN
 import os
+import plotly as plt
 
 
 
@@ -155,19 +156,24 @@ async def lam_chosen(message: types.Message, state: FSMContext):
 
     a=solve(xmin,xmax,h,tmin, tmax,T,lam,user_data)
     a.to_excel('solution.xlsx', sheet_name='Лист1')
+    fig = temp_map(a)
+    fig.write_html("fig.html")
+    fig.show()
+    sur = surface(a)
+    sur.write_html("surface.html")
+    sur.show()
+
     if os.path.isfile('\K_bot\solution.xlsx'):
         await message.answer_document(open("solution.xlsx",'rb'))
+        await message.answer_document(open("fig.html",'rb'))
+        await message.answer_document(open("surface.html",'rb'))
         await message.answer("Готово! Наслаждайтесь!")
         os.remove('\K_bot\solution.xlsx')
         print("success")
     else:
         print("File doesn't exists!")
 
-    fig = temp_map(a)
-    fig.show()
 
-    sur = surface(a)
-    sur.show()
 
     await state.finish()
 
