@@ -158,10 +158,9 @@ async def lam_chosen(message: types.Message, state: FSMContext):
     a.to_excel('solution.xlsx', sheet_name='Лист1')
     fig = temp_map(a)
     fig.write_html("fig.html")
-    fig.show()
     sur = surface(a)
     sur.write_html("surface.html")
-    sur.show()
+
 
     if os.path.isfile('\K_bot\solution.xlsx'):
         await message.answer_document(open("solution.xlsx",'rb'))
