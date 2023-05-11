@@ -157,17 +157,19 @@ async def lam_chosen(message: types.Message, state: FSMContext):
     a=solve(xmin,xmax,h,tmin, tmax,T,lam,user_data)
     a.to_excel('solution.xlsx', sheet_name='Лист1')
     fig = temp_map(a)
-    fig.write_html("fig.html")
+    fig.write_html("map_temp.html")
     sur = surface(a)
     sur.write_html("surface.html")
 
 
     if os.path.isfile('\K_bot\solution.xlsx'):
         await message.answer_document(open("solution.xlsx",'rb'))
-        await message.answer_document(open("fig.html",'rb'))
+        await message.answer_document(open("map_temp.html",'rb'))
         await message.answer_document(open("surface.html",'rb'))
         await message.answer("Готово! Наслаждайтесь!")
         os.remove('\K_bot\solution.xlsx')
+        os.remove('\K_bot\map_temp.html')
+        os.remove('\K_bot\surface.html')
         print("success")
     else:
         print("File doesn't exists!")
